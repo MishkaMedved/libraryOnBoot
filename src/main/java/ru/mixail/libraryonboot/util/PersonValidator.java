@@ -27,7 +27,7 @@ public class PersonValidator implements Validator {
         Person person = (Person) o;
 
         //Посмотреть есть ли человек с таким же fullName
-        if (peopleService.getPersonByFullName(person.getFullName()).isPresent());
-        errors.rejectValue("fullName", "", "This fullName is already taken");
+        if (peopleService.getPersonByFullName(person.getFullName()).isPresent())
+            errors.rejectValue("fullName", "", "This fullName is already taken");
     }
 }

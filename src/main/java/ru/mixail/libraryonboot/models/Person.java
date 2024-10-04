@@ -3,7 +3,9 @@ package ru.mixail.libraryonboot.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 import java.util.List;
 
@@ -14,13 +16,16 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
+
+    @NotEmpty(message = "Поле не может быть пустым")
     @Column(name = "full_name")
-    @Pattern(regexp = "[А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+",
-            message = "Ваше ФИО должно иметь формат: Фамилия Имя Отчество")
+    @Size(min = 2, max = 50, message = "Фио должно быть от 2 до 50 символов")
     private String fullName;
+
     @Column(name = "year_of_birth")
-    @Min(value = 1900, message = "Year of birth cannot be less than 1900")
+    @Min(value = 1900, message = "Год рождения не может быть меньше 1900")
     private int yearOfBirth;
+
     @OneToMany(mappedBy = "owner")
     private List<Book> books;
 

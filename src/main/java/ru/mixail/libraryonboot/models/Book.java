@@ -3,6 +3,7 @@ package ru.mixail.libraryonboot.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
@@ -15,21 +16,29 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
+
     @Column(name = "title")
+    @NotEmpty(message = "Поле не может быть пустым")
     @Size(min = 2, max = 100, message = "Минимум 2 символа, максимум 100")
     private String title;
+
+    @NotEmpty(message = "Автор не может быть пустым")
     @Column(name = "author")
-    @Pattern(regexp = "[А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+", message = "Поле должно быть формата: Фамилия Имя")
+    @Size(min = 2,max = 100, message = "Имя автора должно быть от 2 до 100 символов!")
     private String author;
+
     @Column(name = "year")
     @Min(value = 1500, message = "Год не может быть меньше 1500")
     private int year;
+
     @ManyToOne
     @JoinColumn(name = "person_id", referencedColumnName = "id")
     private Person owner;
+
     @Column(name = "take_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date takeAt;
+
     @Transient
     private boolean expired;
 

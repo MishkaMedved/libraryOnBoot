@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.mixail.libraryonboot.models.Book;
 import ru.mixail.libraryonboot.models.Person;
-import ru.mixail.libraryonboot.repositories.BookRepository;
 import ru.mixail.libraryonboot.repositories.PeopleRepository;
 
 import java.util.Collections;
@@ -18,13 +17,11 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public class PeopleService {
 
-    private PeopleRepository peopleRepository;
-    private final BookRepository bookRepository;
+    private final PeopleRepository peopleRepository;
 
     @Autowired
-    public PeopleService(PeopleRepository peopleRepository, BookRepository bookRepository) {
+    public PeopleService(PeopleRepository peopleRepository) {
         this.peopleRepository = peopleRepository;
-        this.bookRepository = bookRepository;
     }
 
     public List<Person> findAll() {

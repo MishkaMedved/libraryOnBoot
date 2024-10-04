@@ -16,7 +16,7 @@ import ru.mixail.libraryonboot.util.PersonValidator;
 public class PeopleController {
 
     private final PeopleService peopleService;
-    private PersonValidator personValidator;
+    private final PersonValidator personValidator;
 
     @Autowired
     public PeopleController(PeopleService peopleService, PersonValidator personValidator) {
@@ -45,7 +45,7 @@ public class PeopleController {
     @PostMapping()
     public String create(@ModelAttribute("person") @Valid Person person,
                          BindingResult bindingResult) {
-//        personValidator.validate(person, bindingResult);
+        personValidator.validate(person, bindingResult);
         if (bindingResult.hasErrors())
             return "people/new";
 
