@@ -45,7 +45,7 @@ public class PeopleController {
     @PostMapping()
     public String create(@ModelAttribute("person") @Valid Person person,
                          BindingResult bindingResult) {
-        personValidator.validate(person, bindingResult);
+//        personValidator.validate(person, bindingResult);
         if (bindingResult.hasErrors())
             return "people/new";
 
@@ -72,7 +72,7 @@ public class PeopleController {
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
-        peopleService.deleteById(id);
+        peopleService.delete(id);
         return "redirect:/people";
     }
 

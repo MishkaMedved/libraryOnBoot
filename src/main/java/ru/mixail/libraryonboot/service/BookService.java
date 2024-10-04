@@ -52,13 +52,14 @@ public class BookService {
 
     }
 
-    @Transactional
     // Аналог метода save() — сохранение книги
+    @Transactional
     public void save(Book book) {
         bookRepository.save(book);
     }
-    @Transactional
+
     // Аналог метода update(int id, Book updatedBook) — обновление книги
+    @Transactional
     public void update(int id, Book updatedBook) {
         Book bookToBeUpdated = bookRepository.findById(id).get();
 
@@ -66,6 +67,7 @@ public class BookService {
         updatedBook.setOwner(bookToBeUpdated.getOwner());
         bookRepository.save(updatedBook);
     }
+
     @Transactional
     public void delete(int id) {
         bookRepository.deleteById(id);
@@ -75,6 +77,7 @@ public class BookService {
         return bookRepository.findById(id).map(Book::getOwner).orElse(null);
     }
 
+    // Назначить книгу человеку
     @Transactional
     public void assign(int bookId, Person selectedPerson) {
         bookRepository.findById(bookId).ifPresent(book -> {
@@ -83,6 +86,8 @@ public class BookService {
             bookRepository.save(book);
         });
     }
+
+    //Освободить книгу
     @Transactional
     public void release(int bookId) {
         bookRepository.findById(bookId).ifPresent(book -> {

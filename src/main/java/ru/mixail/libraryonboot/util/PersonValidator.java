@@ -28,6 +28,6 @@ public class PersonValidator implements Validator {
 
         //Посмотреть есть ли человек с таким же fullName
         if (peopleService.getPersonByFullName(person.getFullName()).isPresent());
-            errors.rejectValue("fullName","", "This fullName is already taken");
+        errors.rejectValue("fullName", "", "This fullName is already taken");
     }
 }

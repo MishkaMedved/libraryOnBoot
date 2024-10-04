@@ -41,8 +41,8 @@ public class PeopleService {
     }
 
     @Transactional()
-    public Person save(Person person) {
-        return peopleRepository.save(person);
+    public void save(Person person) {
+        peopleRepository.save(person);
     }
 
     @Transactional()
@@ -52,7 +52,7 @@ public class PeopleService {
     }
 
     @Transactional()
-    public void deleteById(int id) {
+    public void delete(int id) {
         peopleRepository.deleteById(id);
     }
 
