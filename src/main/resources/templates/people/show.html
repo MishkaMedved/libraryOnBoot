@@ -20,7 +20,7 @@
         <tr>
             <td>
                 <span th:text="${book.getTitle() + ', ' + book.getAuthor() + ', '+ book.getYear()}"
-                th:style="${book.isExpired()} ? 'color: red;' : 'color: black;'">book
+                th:style="${book.isExpired()} ? 'color: red' : 'color: black'">book
                 </span>
             </td>
         </tr>

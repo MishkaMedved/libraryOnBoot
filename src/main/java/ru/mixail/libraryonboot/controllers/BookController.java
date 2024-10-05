@@ -40,7 +40,7 @@ public class BookController {
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model,
                        @ModelAttribute("person") Person person) {
-        model.addAttribute("book", bookService.findById(id));
+        model.addAttribute("book", bookService.findOne(id));
 
         Person bookOwner = bookService.getBookOwner(id);
 
@@ -68,7 +68,7 @@ public class BookController {
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
-        model.addAttribute("book", bookService.findById(id));
+        model.addAttribute("book", bookService.findOne(id));
         return "books/edit";
     }
 

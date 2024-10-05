@@ -33,16 +33,6 @@ public class BookService {
         }
     }
 
-    // Аналог метода show(int id) — получение книги по ID
-    public Book findById(int id) {
-        Optional<Book> book = bookRepository.findById(id);
-        return book.orElse(null);
-    }
-
-    public List<Book> searchByTitle(String query) {
-        return bookRepository.findByTitleStartingWith(query);
-    }
-
     public List<Book> findWithPagination(Integer page, Integer booksPerPage ,boolean sortByeYear) {
         if (sortByeYear){
             return bookRepository.findAll(PageRequest.of(page,booksPerPage,Sort.by("year"))).getContent();
@@ -50,6 +40,15 @@ public class BookService {
             return bookRepository.findAll(PageRequest.of(page,booksPerPage)).getContent();
         }
 
+    }
+
+    public Book findOne(int id) {
+        Optional<Book> book = bookRepository.findById(id);
+        return book.orElse(null);
+    }
+
+    public List<Book> searchByTitle(String query) {
+        return bookRepository.findByTitleStartingWith(query);
     }
 
     // Аналог метода save() — сохранение книги
@@ -77,22 +76,21 @@ public class BookService {
         return bookRepository.findById(id).map(Book::getOwner).orElse(null);
     }
 
-    // Назначить книгу человеку
-    @Transactional
-    public void assign(int bookId, Person selectedPerson) {
-        bookRepository.findById(bookId).ifPresent(book -> {
-            book.setOwner(selectedPerson);
-            book.setTakeAt(new Date());
-            bookRepository.save(book);
-        });
-    }
-
-    //Освободить книгу
     @Transactional
     public void release(int bookId) {
-        bookRepository.findById(bookId).ifPresent(book -> {
-            book.setOwner(null);
-            book.setTakeAt(null);
+        bookRepository.findById(bookId).ifPresent(
+                book -> {
+                    book.setOwner(null);
+                    book.setTakeAt(null);
+                });
+    }
+
+    @Transactional
+    public void assign(int bookId, Person selectedPerson) {
+        bookRepository.findById(bookId).ifPresent(
+                book -> {
+            book.setOwner(selectedPerson);
+            book.setTakeAt(new Date());
         });
     }
 }
